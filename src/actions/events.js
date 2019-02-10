@@ -1,5 +1,6 @@
 export const EVENTS_CLEAR = 'EVENTS_CLEAR';
 export const EVENTS_DELETE = 'EVENTS_DELETE';
+export const EVENTS_FILTER = 'EVENTS_FILTER';
 
 export function clearEvents() {
   return {
@@ -17,5 +18,14 @@ export function deleteEvent(eventId) {
         events: events.filter(event => event.id !== eventId),
       }
     });
+  };
+}
+
+export function filterEvents(filterBy) {
+  return {
+    type: EVENTS_FILTER,
+    payload: {
+      filterBy,
+    },
   };
 }

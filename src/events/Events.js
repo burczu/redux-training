@@ -10,13 +10,14 @@ import * as eventsActions from '../actions/events';
 class Events extends React.Component {
   static propTypes = {
     events: PropTypes.array.isRequired,
+    filterBy: PropTypes.string.isRequired,
     clearEvents: PropTypes.func.isRequired,
     deleteEvent: PropTypes.func.isRequired,
+    filterEvents: PropTypes.func.isRequired,
   };
 
   state = {
     events: [],
-    filter: '',
   };
 
   constructor(props) {
@@ -48,10 +49,9 @@ class Events extends React.Component {
 
   handleFilter(event) {
     const { value } = event.target;
+    const { filterEvents } = this.props;
 
-    this.setState({
-      filter: value,
-    });
+    filterEvents(value);
   }
 
   addSubmitHandler(values) {
@@ -77,19 +77,16 @@ class Events extends React.Component {
   }
 
   render() {
-    const {
-      filter,
-    } = this.state;
-    const { events } = this.props;
+    const { events, filterBy } = this.props;
 
     return (
       <>
-        <Filter filter={filter} onFilterChange={this.handleFilter} />
+        <Filter filter={filterBy} onFilterChange={this.handleFilter} />
         <ul>
           {events.map(item => {
             const date = new Date(item.date);
 
-            if (date >= Date.now() && item.name.indexOf(filter) !== -1) {
+            if (date >= Date.now() && item.name.indexOf(filterBy) !== -1) {
               return <EventItem key={item.id} item={item} onDeleteItem={this.deleteHandler}/>;
             }
 
@@ -108,11 +105,13 @@ class Events extends React.Component {
 
 const mapStateToProps = (state) => ({
   events: state.events,
+  filterBy: state.filterBy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
+  filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
