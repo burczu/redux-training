@@ -11,6 +11,7 @@ class Events extends React.Component {
   static propTypes = {
     events: PropTypes.array.isRequired,
     clearEvents: PropTypes.func.isRequired,
+    deleteEvent: PropTypes.func.isRequired,
   };
 
   state = {
@@ -41,12 +42,8 @@ class Events extends React.Component {
   }
 
   deleteHandler(eventId) {
-    const { events } = this.state;
-    const filtered = events.filter((event) => event.id !== eventId);
-
-    this.setState({
-      events: filtered,
-    });
+    const { deleteEvent } = this.props;
+    deleteEvent(eventId);
   }
 
   handleFilter(event) {
@@ -115,6 +112,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
+  deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
