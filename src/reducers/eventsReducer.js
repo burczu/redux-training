@@ -8,7 +8,7 @@ const initialState = {
 export default function eventsReducer(state = initialState, action) {
   switch (action.type) {
     case EVENTS_CLEAR:
-      return { ...initialState };
+      return { ...state, events: [] };
     default:
       return { ...state };
   }
