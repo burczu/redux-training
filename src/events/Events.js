@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import EventItem from './EventItem';
 import Filter from './Filter';
 import EventAdd from './EventAdd';
 
+import * as eventsActions from '../actions/events';
+
 class Events extends React.Component {
   static propTypes = {
     events: PropTypes.array.isRequired,
+    clearEvents: PropTypes.func.isRequired,
   };
 
   state = {
@@ -32,9 +36,8 @@ class Events extends React.Component {
   }
 
   clearHandler() {
-    this.setState({
-      events: [],
-    });
+    const { clearEvents } = this.props;
+    clearEvents();
   }
 
   deleteHandler(eventId) {
@@ -78,9 +81,9 @@ class Events extends React.Component {
 
   render() {
     const {
-      events,
       filter,
     } = this.state;
+    const { events } = this.props;
 
     return (
       <>
@@ -106,4 +109,12 @@ class Events extends React.Component {
   }
 }
 
-export default Events;
+const mapStateToProps = (state) => ({
+  events: state.events,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearEvents: () => dispatch(eventsActions.clearEvents()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Events);
