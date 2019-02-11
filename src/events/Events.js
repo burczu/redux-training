@@ -10,11 +10,15 @@ import * as eventsActions from '../actions/events';
 class Events extends React.Component {
   static propTypes = {
     events: PropTypes.array.isRequired,
+    eventsLoading: PropTypes.bool.isRequired,
+    eventsError: PropTypes.bool.isRequired,
+    eventsErrorMessage: PropTypes.string.isRequired,
     filterBy: PropTypes.string.isRequired,
     clearEvents: PropTypes.func.isRequired,
     deleteEvent: PropTypes.func.isRequired,
     filterEvents: PropTypes.func.isRequired,
     addEvent: PropTypes.func.isRequired,
+    getEvents: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,10 +32,8 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    const { events } = this.props;
-    this.setState({
-      events,
-    });
+    const { getEvents } = this.props;
+    getEvents();
   }
 
   clearHandler() {
@@ -64,7 +66,21 @@ class Events extends React.Component {
   }
 
   render() {
-    const { events, filterBy } = this.props;
+    const {
+      events,
+      eventsLoading,
+      eventsError,
+      eventsErrorMessage,
+      filterBy
+    } = this.props;
+
+    if (eventsLoading) {
+      return <p>Ładowanie danych...</p>;
+    }
+
+    if (eventsError) {
+      return <p style={{ color: 'red' }}>Błąd: {eventsErrorMessage}</p>;
+    }
 
     return (
       <>
@@ -99,6 +115,7 @@ const mapDispatchToProps = (dispatch) => ({
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
   addEvent: (name, place, date, time) => dispatch(eventsActions.addEvent(name, place, date, time)),
+  getEvents: () => dispatch(eventsActions.getEvents()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
