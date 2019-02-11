@@ -14,10 +14,7 @@ class Events extends React.Component {
     clearEvents: PropTypes.func.isRequired,
     deleteEvent: PropTypes.func.isRequired,
     filterEvents: PropTypes.func.isRequired,
-  };
-
-  state = {
-    events: [],
+    addEvent: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -55,21 +52,11 @@ class Events extends React.Component {
   }
 
   addSubmitHandler(values) {
-    const { events } = this.state;
+    const { addEvent } = this.props;
+    const { name, place, date, time } = values;
 
-    this.setState({
-      events: [
-        ...events,
-        {
-          ...values,
-          id: events.length + 1,
-        },
-      ]
-    }, () => {
-      if (this.addForm) {
-        this.addForm.reset();
-      }
-    });
+    addEvent(name, place, date, time);
+    this.addForm.reset();
   }
 
   getAddForm(form) {
@@ -112,6 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
+  addEvent: (name, place, date, time) => dispatch(eventsActions.addEvent(name, place, date, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);

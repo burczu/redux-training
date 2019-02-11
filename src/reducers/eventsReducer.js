@@ -1,4 +1,5 @@
 import {
+  EVENTS_ADD,
   EVENTS_CLEAR,
   EVENTS_DELETE,
   EVENTS_FILTER,
@@ -20,6 +21,8 @@ export default function eventsReducer(state = initialState, action) {
       return { ...state, events };
     case EVENTS_FILTER:
       return { ...state, filterBy };
+    case EVENTS_ADD:
+      return { ...state, events };
     default:
       return { ...state };
   }
