@@ -91,8 +91,7 @@ class Events extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  events: state.events,
-  filterBy: state.filterBy,
+  ...state.eventsState,
 });
 
 const mapDispatchToProps = (dispatch) => ({

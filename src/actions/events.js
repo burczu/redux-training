@@ -11,7 +11,7 @@ export function clearEvents() {
 
 export function deleteEvent(eventId) {
   return (dispatch, getState) => {
-    const events = getState().events;
+    const events = getState().eventsState.events;
 
     dispatch({
       type: EVENTS_DELETE,
@@ -33,7 +33,7 @@ export function filterEvents(filterBy) {
 
 export function addEvent(name, place, date, time) {
   return (dispatch, getState) => {
-    const events = getState().events;
+    const events = getState().eventsState.events;
 
     dispatch({
       type: EVENTS_ADD,
