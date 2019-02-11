@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import EventItem from './EventItem';
 import Filter from './Filter';
 import EventAdd from './EventAdd';
+import Loader from '../loader/Loader';
 
 import * as eventsActions from '../actions/events';
 
@@ -74,16 +75,12 @@ class Events extends React.Component {
       filterBy
     } = this.props;
 
-    if (eventsLoading) {
-      return <p>Ładowanie danych...</p>;
-    }
-
-    if (eventsError) {
-      return <p style={{ color: 'red' }}>Błąd: {eventsErrorMessage}</p>;
-    }
-
     return (
-      <>
+      <Loader
+        isLoading={eventsLoading}
+        isError={eventsError}
+        errorMessage={eventsErrorMessage}
+      >
         <Filter filter={filterBy} onFilterChange={this.handleFilter} />
         <ul>
           {events.map(item => {
@@ -101,7 +98,7 @@ class Events extends React.Component {
           onFormSubmit={this.addSubmitHandler}
           getForm={this.getAddForm}
         />
-      </>
+      </Loader>
     );
   }
 }
