@@ -22,6 +22,9 @@ export default function eventsReducer(state = initialState, action) {
     case EVENTS_FILTER:
       return { ...state, filterBy };
     case EVENTS_ADD:
+      // tutaj tylko aktualizacja
+      // zauważ, że dla EVENTS_DELETE I EVENTS_ADD robimy to samo...
+      // w takiej sytuacji można pomyśleć o bardziej ogólnej akcji, np. EVENTS_UPDATE
       return { ...state, events };
     default:
       return { ...state };

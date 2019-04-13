@@ -32,15 +32,17 @@ export function filterEvents(filterBy) {
 }
 
 export function addEvent(name, place, date, time) {
+  // po raz kolejny korzystamy z redux-thunk i zwracamy funkcję a nie obiekt
   return (dispatch, getState) => {
     const events = getState().events;
 
     dispatch({
       type: EVENTS_ADD,
       payload: {
+        // w akcji przekazujemy zaktualizowaną tabicę events
         events: [
-          ...events,
-          {
+          ...events, // ES6: do nowej tablicy skopiuj zawartość starej
+          { // dodatkowo dodaj do nowej tablicy jeszcze jeden obiekt
             id: events.length + 1,
             name,
             place,

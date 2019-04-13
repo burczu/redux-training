@@ -41,6 +41,7 @@ class Events extends React.Component {
 
   deleteHandler(eventId) {
     const { deleteEvent } = this.props;
+
     deleteEvent(eventId);
   }
 
@@ -55,6 +56,7 @@ class Events extends React.Component {
     const { addEvent } = this.props;
     const { name, place, date, time } = values;
 
+    // tylko wywołujemy funkcję dispatchującą akcję
     addEvent(name, place, date, time);
     this.addForm.reset();
   }
@@ -99,6 +101,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
+  // kolejna funkcja dispatchująca akcję dodana do propsów
   addEvent: (name, place, date, time) => dispatch(eventsActions.addEvent(name, place, date, time)),
 });
 
