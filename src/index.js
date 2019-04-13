@@ -8,9 +8,13 @@ import eventsReducer from './reducers/eventsReducer';
 
 import './style.css';
 
+// funkcja "createStore" tworzy obiekt store
+// jako parametr przyjmuje funkcję reducera
 const store = createStore(eventsReducer);
 
 ReactDOM.render(
+  // komponentem Provider "owijamy" główny komponent aplikacji
+  // dzięki temu store będzie dostępny dla wszystkich komponentów aplikacji
   <Provider store={store}>
     <App />
   </Provider>,
