@@ -43,6 +43,7 @@ class Events extends React.Component {
 
   deleteHandler(eventId) {
     const { deleteEvent } = this.props;
+    // wywołanie funkcji dispatchującej akcję
     deleteEvent(eventId);
   }
 
@@ -112,6 +113,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
+  // mapujemy wywołanie akcji deleteEvent na propsy komponentu
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
 });
 

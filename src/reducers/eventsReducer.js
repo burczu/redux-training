@@ -6,11 +6,13 @@ const initialState = {
 };
 
 export default function eventsReducer(state = initialState, action) {
+  // wyciągamy dane z właściwości payload akcji
   const { events } = action.payload || {};
 
   switch (action.type) {
     case EVENTS_CLEAR:
       return { ...state, events: [] };
+    // obsługa akcji usuwania - nadpisanie obiektu events
     case EVENTS_DELETE:
       return { ...state, events };
     default:

@@ -9,6 +9,8 @@ import eventsReducer from './reducers/eventsReducer';
 
 import './style.css';
 
+// konfigurujemy store Reduxa razem z middleware: jako drugi parametr
+// przekazujemy rezultat wywołania funkcji applyMiddleware
 const store = createStore(eventsReducer, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
