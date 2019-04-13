@@ -36,6 +36,9 @@ class Events extends React.Component {
   }
 
   clearHandler() {
+    // metoda "clearEvents" to funkcja, którą zdefiniowaliśmy w mapDispatchToProps
+    // wywołuje ona akcję czyszczenia stanu, reducer wyłapuje tę akcję i zwraca
+    // nowy, zaktualizowany stan, a to z kolei powoduje kolejne renderowanie komponentu
     const { clearEvents } = this.props;
     clearEvents();
   }
@@ -83,6 +86,9 @@ class Events extends React.Component {
     const {
       filter,
     } = this.state;
+
+    // obiekt "events" znajdujący się w propsach to ten, który zdefiniowaliśmy
+    // w obiekcie zwracanym przez mapStateToProps czyli de facto ten znajdujący się store Reduxa
     const { events } = this.props;
 
     return (
@@ -109,12 +115,21 @@ class Events extends React.Component {
   }
 }
 
+// funkcja mapStateToProps jako parametr przyjmuje obikekt stanu (Reduxa)
+// natomiast zwraca obiekt, zwykle będący jakimś wycinkiem stanu
+// potrzebnym w danym komponencie
+// zawartość tego obiektu jest kopiowana do obiektu props komponentu
 const mapStateToProps = (state) => ({
   events: state.events,
 });
 
+// funkcja mapDispatchToProps jako parametr przyjmuje funkcję dispatch
+// podobnie do mapStateToProps zwraca obiekt, którego zawartość jest kopiowana do props
+// tym razem jednak, obiekt ten zawiera funkcje, które "dispatchują" akcje Reduxa
 const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
 });
 
+// funkcja "connect" to HOC, który wywołuje funkcje mapStateToProps i mamDispatchToProps
+// a następnie wzbogaca nasz komponent o wartości zwracane przez te funkcje
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
