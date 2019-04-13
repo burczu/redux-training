@@ -22,6 +22,7 @@ export function deleteEvent(eventId) {
 }
 
 export function filterEvents(filterBy) {
+  // przy naszym sposobie filtrowania zapisujjemy tylko aktualną wartość filtra
   return {
     type: EVENTS_FILTER,
     payload: {

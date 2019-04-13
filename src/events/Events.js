@@ -51,6 +51,7 @@ class Events extends React.Component {
     const { value } = event.target;
     const { filterEvents } = this.props;
 
+    // wywołanie funkcji dispatchującej kreator akcji
     filterEvents(value);
   }
 
@@ -86,6 +87,7 @@ class Events extends React.Component {
           {events.map(item => {
             const date = new Date(item.date);
 
+            // filterBy tym razem brane z propsów, czyli ze store Reduxa
             if (date >= Date.now() && item.name.indexOf(filterBy) !== -1) {
               return <EventItem key={item.id} item={item} onDeleteItem={this.deleteHandler}/>;
             }
@@ -105,12 +107,14 @@ class Events extends React.Component {
 
 const mapStateToProps = (state) => ({
   events: state.events,
+  // dodajemy kolejną wartość stanu do propsów
   filterBy: state.filterBy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   clearEvents: () => dispatch(eventsActions.clearEvents()),
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
+  // kolejna funkcja dispatchująca kreator akcji dodana do propsów
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
 });
 

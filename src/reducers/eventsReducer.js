@@ -7,7 +7,7 @@ import events from '../data/events';
 
 const initialState = {
   events,
-  filterBy: '',
+  filterBy: '', // dodatkowa właściwość stanu początkowego!!
 };
 
 export default function eventsReducer(state = initialState, action) {
@@ -18,6 +18,7 @@ export default function eventsReducer(state = initialState, action) {
       return { ...state, events: [] };
     case EVENTS_DELETE:
       return { ...state, events };
+    // tylko zapisanie aktualnej wartości filtra (jak zawsze, zwracamy nowy obiekt)
     case EVENTS_FILTER:
       return { ...state, filterBy };
     default:
