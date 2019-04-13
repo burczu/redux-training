@@ -12,6 +12,10 @@ const Loader = (props) => {
     return <p style={{ color: 'red' }}>Błąd: {errorMessage}</p>;
   }
 
+  // właściwość "children" obiektu props zawiera wszystko co znajduje się
+  // wewnątrz danego komponentu, tzn. jeśli wykorzystamy komponent Loader w ten sposób:
+  // <Loader><p>Hello world!</p></Loader>
+  // to obiekt children zawierać będzie element <p>Hello world</p>
   return <div>{children}</div>;
 };
 

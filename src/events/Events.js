@@ -76,11 +76,13 @@ class Events extends React.Component {
     } = this.props;
 
     return (
+      // przykład wykorzystania komponentu Loader
       <Loader
         isLoading={eventsLoading}
         isError={eventsError}
         errorMessage={eventsErrorMessage}
       >
+        {/* wszystko co poniżej trafia do "children" propsów komponentu Loader */}
         <Filter filter={filterBy} onFilterChange={this.handleFilter} />
         <ul>
           {events.map(item => {
