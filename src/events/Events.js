@@ -91,10 +91,15 @@ class Events extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  // uproszczenie - do propsów przekazujemy po prostu cały stan reducera events
+  // zwróć uwagę, że do interesującej nas części stanu dostajemy się poprzez
+  // właściwość "eventsState" czyli tę, do której przypisaliśmy eventsReducer
+  // przy wywołaniu funkcji "combineReducer" (patrz plik /src/reducers/index.js)
   ...state.eventsState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  // z punktu widzenia mapowania kreatorów akcji, nic się nie zmienia
   clearEvents: () => dispatch(eventsActions.clearEvents()),
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
