@@ -33,6 +33,8 @@ class Events extends React.Component {
 
   componentDidMount() {
     const { getEvents } = this.props;
+
+    // na pobranie danych z API, dobrym miejscem jest metoda "componentDidMount"
     getEvents();
   }
 
@@ -74,14 +76,18 @@ class Events extends React.Component {
       filterBy
     } = this.props;
 
+    // w zależności od aktualnego stanu pobierania...
+    // jeśli trwa ładowanie danych - pokaż loader
     if (eventsLoading) {
       return <p>Ładowanie danych...</p>;
     }
 
+    // jeśli wystąpił błąd - pokaż komunikat
     if (eventsError) {
       return <p style={{ color: 'red' }}>Błąd: {eventsErrorMessage}</p>;
     }
 
+    // jeśli nie trwa pobieranie, ani nie ma błędów - pokaż listę wydarzeń
     return (
       <>
         <Filter filter={filterBy} onFilterChange={this.handleFilter} />
@@ -115,6 +121,9 @@ const mapDispatchToProps = (dispatch) => ({
   deleteEvent: (eventId) => dispatch(eventsActions.deleteEvent(eventId)),
   filterEvents: (filterBy) => dispatch(eventsActions.filterEvents(filterBy)),
   addEvent: (name, place, date, time) => dispatch(eventsActions.addEvent(name, place, date, time)),
+  // przypisujem wywołanie kreatora akcji,
+  // odpowiedzialnego za pobranie danych z API
+  // do propsów komponentu Events
   getEvents: () => dispatch(eventsActions.getEvents()),
 });
 

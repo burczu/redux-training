@@ -28,6 +28,10 @@ export default function eventsReducer(state = initialState, action) {
       return { ...state, filterBy };
     case EVENTS_ADD:
       return { ...state, events };
+
+    // akcja wywoływana przed rozpoczęciem pobierania
+    // ustawia loader i resetuje pozostałe wartości
+    // odpowiedzialne za operację asynchroniczną
     case EVENTS_GET_START:
       return {
         ...state,
@@ -35,6 +39,10 @@ export default function eventsReducer(state = initialState, action) {
         eventsError: false,
         eventsErrorMessage: '',
       };
+
+    // akcja wywoływana, gdy pobieranie się powiedzie
+    // oprócz zresetowania loadera i reszty wartości sterujących
+    // pobieraniem, przypisuje też ona pobrane dane do state (obiekt events)
     case EVENTS_GET_SUCCESS:
       return {
         ...state,
@@ -43,6 +51,10 @@ export default function eventsReducer(state = initialState, action) {
         eventsErrorMessage: '',
         events
       };
+
+    // akcja wywoływana kiedy nastąpi błąd pobierania danych
+    // resetuje loader oraz ustawia informację, że nastąpił błąd
+    // a także przypisuje do stanu error message
     case EVENTS_GET_ERROR:
       return {
         ...state,
