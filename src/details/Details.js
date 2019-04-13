@@ -13,10 +13,16 @@ class Details extends React.Component {
     const { selectEvent, match } = this.props;
 
     const id = match.params.id;
+
+    // zamiast zmieniać wewnętrzny stan komponentu
+    // wywołujemy kreator akcji, który odpowienio zmieni stan w Redux
     selectEvent(parseInt(id, 10));
   }
 
   render() {
+    // wydarzenie zapisane w store pobieramy z propsów,
+    // ponieważ udostępniliśmy je komponentowi Details
+    // w funkcji "mapStateToProps"
     const event = this.props.event || {};
 
     return (
@@ -31,11 +37,16 @@ class Details extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  // w tym komponencie nie potrzebujemy informacji o wydarzeniach (eventsState)
+  // wystarczy nam, jeśli do propsów przypiszemy tylko częśćo odpowiedzialną za szczegóły wydarzenia
   ...state.detailsState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  // aby móc skorzystać z nowo utworzonego kreatora akcji "selectEvent"
+  // musimy dodać go do propsów komponentu
   selectEvent: (eventId) => dispatch(detailsActions.selectEvent(eventId)),
 });
 
+// łączymy komponent Details z Reduxem za pomocą HOC "connect"
 export default connect(mapStateToProps, mapDispatchToProps)(Details);
