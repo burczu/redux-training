@@ -8,7 +8,11 @@ import eventsReducer from './reducers/eventsReducer';
 
 import './style.css';
 
-const store = createStore(eventsReducer);
+const store = createStore(
+  eventsReducer,
+  // ustawienia niezbędne dla Redux Chrome dev tool
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
   <Provider store={store}>
